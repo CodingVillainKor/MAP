@@ -8,9 +8,8 @@ from .dataset import MNISTData
 class Trainer:
     def __init__(self):
         self.model = Net()
-        dataset = MNISTData()
-        self.dataloader = DataLoader(dataset, batch_size=32, shuffle=True)
-        self.val_dataloader = DataLoader(dataset.val_dataset, batch_size=32, shuffle=False)
+        self.dataloader = MNISTData.get_dataloader({"mode": "train"}, {"batch_size": 32, "shuffle": True})
+        self.val_dataloader = MNISTData.get_dataloader({"mode": "val"}, {"batch_size": 32, "shuffle": False})
         self.optimizer = torch.optim.Adam(self.model.parameters(), lr=0.001)
         self.criterion = torch.nn.CrossEntropyLoss()
     
