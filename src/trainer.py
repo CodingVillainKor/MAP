@@ -1,20 +1,15 @@
 import torch
-from torch.utils.data import DataLoader
-
-from .models import Net
-from .dataset import MNISTData
-
 
 class Trainer:
-    def __init__(self):
-        self.model = Net()
-        self.dataloader = MNISTData.get_dataloader({"mode": "train"}, {"batch_size": 32, "shuffle": True})
-        self.val_dataloader = MNISTData.get_dataloader({"mode": "val"}, {"batch_size": 32, "shuffle": False})
-        self.optimizer = torch.optim.Adam(self.model.parameters(), lr=0.001)
+    def __init__(self, model, dataloader, trainer_config):
+        self.model = model
+        self.dataloader = dataloader
+        self.optimizer = torch.optim.Adam(self.model.parameters(), lr=trainer_config.trainer_config["lr"])
         self.criterion = torch.nn.CrossEntropyLoss()
+        self.epochs = trainer_config.trainer_config["epochs"]
     
-    def train(self, epochs):
-        for epoch in range(epochs):
+    def train(self):
+        for epoch in range(self.epochs):
             for i, (data, target) in enumerate(self.dataloader, 1):
                 self.optimizer.zero_grad()
                 output = self.model(data)
