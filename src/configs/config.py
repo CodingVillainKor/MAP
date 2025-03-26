@@ -13,10 +13,11 @@ class Config:
     trainer_config: TrainerConfig
 
     @classmethod
-    def exp1(cls):
-        return cls(
-            exp_name="exp1",
-            data_config=DataConfig.mnist(),
-            model_config=ModelConfig.net(),
-            trainer_config=TrainerConfig.default()
-        )
+    def get_config(cls, exp_name):
+        if exp_name == "exp1":
+            return cls(
+                exp_name=exp_name,
+                data_config=DataConfig.mnist(),
+                model_config=ModelConfig.net(),
+                trainer_config=TrainerConfig.default()
+            )

@@ -6,7 +6,7 @@ from src.models import get_model
 from src.trainer import Trainer
 
 def main(args):
-    config = getattr(Config, args.exp_name)()
+    config = Config.get_config(args.exp_name)
     dataloader = get_dataloader(config.data_config)
     model = get_model(config.model_config)
     trainer = Trainer(model, dataloader, config.trainer_config)
