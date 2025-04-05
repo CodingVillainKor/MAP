@@ -1,0 +1,5 @@
+{
+    "model_kwargs": {
+        "dim": 32
+    }
+}

@@ -1,12 +1,13 @@
 import torch
 from torch.utils.data import DataLoader
+import json
 
 from mnist import MNISTData
 from model import Net
 
 class Trainer:
-    def __init__(self):
-        self.model = Net(dim=16)
+    def __init__(self, config):
+        self.model = Net(dim=16) # change this by config
         dataset = MNISTData()
         self.dataloader = DataLoader(dataset, batch_size=32, shuffle=True)
         self.val_dataloader = DataLoader(dataset.val_dataset, batch_size=32, shuffle=False)
@@ -38,7 +39,8 @@ class Trainer:
 
 
 def main():
-    trainer = Trainer()
+    config = ... # change this by loading from config file
+    trainer = Trainer(config)
     trainer.train(5)
     trainer.test()
 
